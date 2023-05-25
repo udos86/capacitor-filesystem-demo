@@ -24,9 +24,9 @@ export class HomePage implements OnInit {
     });
 
     // when hybrid, image data is saved as file on disk 
-    // therefore image uri can src attribute 
+    // therefore image uri can be used as src attribute 
     if (this.platform.is('hybrid')) {
-      // file uri needs to be converted from scheme file:// to https
+      // file uri needs to be converted from scheme file:// to https://
       result.files.forEach(fileInfo => this.imageFiles.push(Capacitor.convertFileSrc(fileInfo.uri)));
       // when browser, image data is saved as Base64 string in IndexedDB
       // therefore image uri is only virtual and image data must be read from IndexedDB
