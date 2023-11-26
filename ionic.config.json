@@ -1,7 +1,7 @@
 {
-  "name": "capacitor-sample",
+  "name": "capacitor-filesystem-demo",
   "integrations": {
     "capacitor": {}
   },
-  "type": "angular"
+  "type": "angular-standalone"
 }

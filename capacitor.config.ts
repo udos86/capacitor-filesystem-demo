@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'de.udo.capacitorSample',
-  appName: 'capacitor-sample',
+  appId: 'de.udos86.capacitorFilesystemDemo',
+  appName: 'capacitor-filesystem-demo',
   webDir: 'www',
   server: {
     androidScheme: 'https'

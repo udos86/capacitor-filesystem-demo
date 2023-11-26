@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">capacitor-sample</string>
-    <string name="title_activity_main">capacitor-sample</string>
-    <string name="package_name">de.udo.capacitorSample</string>
-    <string name="custom_url_scheme">de.udo.capacitorSample</string>
+    <string name="app_name">capacitor-filesystem-demo</string>
+    <string name="title_activity_main">capacitor-filesystem-demo</string>
+    <string name="package_name">de.udos86.capacitorFilesystemDemo</string>
+    <string name="custom_url_scheme">de.udos86.capacitorFilesystemDemo</string>
 </resources>

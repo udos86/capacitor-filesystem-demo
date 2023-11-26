@@ -1,10 +1,10 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace "de.udo.capacitorSample"
+    namespace "de.udos86.capacitorFilesystemDemo"
     compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
-        applicationId "de.udo.capacitorSample"
+        applicationId "de.udos86.capacitorFilesystemDemo"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

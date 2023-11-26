@@ -1,28 +1,34 @@
-import { Component, OnInit } from '@angular/core';
-import { Capacitor } from '@capacitor/core';
-import { Directory, Encoding, Filesystem } from '@capacitor/filesystem';
-import { Platform } from '@ionic/angular';
+import { Component, OnInit, inject } from '@angular/core';
+import { KeyValuePipe } from '@angular/common';
+import { IonButton, IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { Directory, Encoding, FileInfo, Filesystem } from '@capacitor/filesystem';
+import { ImageFileService } from '../image-file.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
+  standalone: true,
+  imports: [IonButton, IonContent, IonHeader, IonTitle, IonToolbar, KeyValuePipe]
 })
 export class HomePage implements OnInit {
+  private readonly fileService = inject(ImageFileService);
+
   // demoFile: string | undefined;
   // demoImageFile: string | undefined;
 
-  readonly imageFiles: string[] = [];
-
-  constructor(private readonly platform: Platform) { }
+  images: Map<FileInfo, string> = this.fileService.files;
 
   async ngOnInit(): Promise<void> {
+    /*
     // retrieve a list of all already stored files
     const result = await Filesystem.readdir({
       path: '',
       directory: Directory.External
     });
 
+    result.files.forEach(fileInfo => this.imageFiles.push(fileInfo));
+    
     // when hybrid, image data is saved as file on disk 
     // therefore image uri can be used as src attribute 
     if (this.platform.is('hybrid')) {
@@ -36,6 +42,7 @@ export class HomePage implements OnInit {
         this.imageFiles.push(`data:image/jpeg;base64,${result.data}`);
       }
     }
+    */
   }
 
   onFileSelected(event: Event) {
@@ -47,6 +54,8 @@ export class HomePage implements OnInit {
 
     if (file === null) throw new Error('File does not exist');
 
+    this.fileService.writeFile(file);
+    /*
     const fileReader = new FileReader();
     fileReader.onload = async () => {
       // this.demoImageFile = fileReader.result as string;
@@ -60,14 +69,21 @@ export class HomePage implements OnInit {
 
       // when hybrid, add converted filesystem uri
       // when browser, add data url
-      const url = this.platform.is('hybrid') ? Capacitor.convertFileSrc(result.uri) : fileReader.result as string;
-      this.imageFiles.push(url);
+      const uri = this.platform.is('hybrid') ? Capacitor.convertFileSrc(result.uri) : fileReader.result as string;
+      const {lastModified, name, size} = file;
+      const fileInfo: FileInfo = { mtime: lastModified, name, size, type: 'file', uri};
+      this.imageFiles.push(file);
     };
     // read image data as Base64 encoded string
     fileReader.readAsDataURL(file);
+    */
   }
 
-  async writeFile(): Promise<void> {
+  async deleteFile(fileInfo: FileInfo): Promise<void> {
+    this.fileService.deleteFile(fileInfo);
+  }
+
+  async writeDemoFile(): Promise<void> {
     const result = await Filesystem.writeFile({
       path: 'files/sample.txt',
       data: 'This is a sample text file',
@@ -77,7 +93,7 @@ export class HomePage implements OnInit {
     });
   }
 
-  async readFile(): Promise<void> {
+  async readDemoFile(): Promise<void> {
     const result = await Filesystem.readFile({
       path: 'files/sample.txt',
       directory: Directory.External,

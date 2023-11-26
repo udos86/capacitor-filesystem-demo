@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Capacitor Filesystem Demo
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,25 +9,32 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
+      <ion-title size="large">Capacitor Filesystem Demo</ion-title>
     </ion-toolbar>
   </ion-header>
 
   <!--
   <ion-button (click)="writeFile()">Write File</ion-button>
   <ion-button (click)="readFile()">Read File</ion-button>
-  <p *ngIf="demoFile">{{demoFile}}</p>
+  @if (demoFile) {
+    <p>{{demoFile}}</p>
+  }
   -->
 
   <input type="file" accept="image/*" hidden (change)="onFileSelected($event)" #fileInput />
   <ion-button (click)="fileInput.click()">Pick File</ion-button>
 
-  <!--div><img *ngIf="demoImageFile" [src]="demoImageFile" /></div-->
+  <!--div>
+    @if (demoImageFile) {
+      <img [src]="demoImageFile" />
+    }
+  </div-->
 
   <ul>
-    <li *ngFor="let uri of imageFiles">
-      <img [src]="uri" />
-    </li>
+    @for (image of images | keyvalue; track image.key.uri) {
+      <li><img [src]="image.value" /></li>
+      <ion-button (click)="deleteFile(image.key)">Delete</ion-button>
+    }
   </ul>
 
 </ion-content>
